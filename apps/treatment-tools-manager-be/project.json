@@ -1,0 +1,64 @@
+{
+  "name": "treatment-tools-manager-be",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/treatment-tools-manager-be/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/treatment-tools-manager-be",
+        "main": "apps/treatment-tools-manager-be/src/main.ts",
+        "tsConfig": "apps/treatment-tools-manager-be/tsconfig.app.json",
+        "assets": ["apps/treatment-tools-manager-be/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/treatment-tools-manager-be/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "treatment-tools-manager-be:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "treatment-tools-manager-be:build:development"
+        },
+        "production": {
+          "buildTarget": "treatment-tools-manager-be:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/treatment-tools-manager-be/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/treatment-tools-manager-be/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

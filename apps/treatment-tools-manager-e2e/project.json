@@ -1,0 +1,33 @@
+{
+  "name": "treatment-tools-manager-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/treatment-tools-manager-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/treatment-tools-manager-e2e/cypress.config.ts",
+        "devServerTarget": "treatment-tools-manager:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "treatment-tools-manager:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "treatment-tools-manager:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/treatment-tools-manager-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["treatment-tools-manager"]
+}
